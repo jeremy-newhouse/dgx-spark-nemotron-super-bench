@@ -1,0 +1,50 @@
+name: Validation report
+description: Report your reproduction of the DGX Spark Nemotron-3-Super NVFP4 decode numbers
+title: "[validation] <GPU> - <decode tok/s>"
+labels: ["validation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for validating. Run `python3 bench_decode.py` and paste the generated
+        `validation-report.md` below. (If you have the GitHub CLI installed and
+        authenticated, the script can file this for you automatically.)
+        Please leave out host names or other personal identifiers.
+  - type: dropdown
+    id: hardware
+    attributes:
+      label: Hardware
+      options:
+        - DGX Spark (GB10)
+        - Other (describe in the report)
+    validations:
+      required: true
+  - type: input
+    id: image
+    attributes:
+      label: vLLM image (tag, plus digest if you have it)
+      placeholder: "vllm/vllm-openai:v0.22.0"
+    validations:
+      required: true
+  - type: dropdown
+    id: recipe
+    attributes:
+      label: Did you use launch_server.sh unmodified?
+      options:
+        - "Yes, unmodified"
+        - "Modified (describe in the report)"
+    validations:
+      required: true
+  - type: textarea
+    id: report
+    attributes:
+      label: validation-report.md
+      description: Paste the full generated report.
+      render: markdown
+    validations:
+      required: true
+  - type: textarea
+    id: realworkload
+    attributes:
+      label: Real-workload result (optional)
+      description: "e.g. python3 bench_decode.py --iters 5 --max-tokens 8192 --temperature 1.0"
